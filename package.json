@@ -1,0 +1,14 @@
+{
+  "name": "catalist",
+  "version": "1.0.0",
+  "description": "Pagina web de Catalist",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marco, Eloi y Javier",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
+}
