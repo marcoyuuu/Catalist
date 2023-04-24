@@ -1,86 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Catalist</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            body {
-                background-image: url("assets/logo_Catalist - Copy.jpg");
-                background-repeat: no-repeat;
-                background-size: 100%;
-                background-color: #363636;
-                color: white;
-                font-size: 1.2rem;
-            }
-    
-            .login-container {
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                z-index: 1;
-            }
-    
-            .login-box {
-                background-color: rgba(54, 54, 54, 0.8);
-                padding: 2rem;
-                border-radius: 5px;
-            }
-    
-            .form-control:focus {
-                box-shadow: none;
-                border-color: #f5c7f7;
-            }
-    
-            .btn {
-                background-color: #f5c7f7;
-                border: none;
-                font-size: 1.2rem;
-                width: 100%;
-            }
-    
-            .welcome-message {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            .background-image-top,
-            .background-image-bottom {
-                position: absolute;
-                background-image: url("assets/logo_Catalist - Copy.jpg");
-                background-repeat: no-repeat;
-                background-size: cover;
-                width: 100%;
-                height: 50%;
-            }
 
-            .background-image-top {
-                top: 0;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0);
+        }
 
-            .background-image-bottom {
-                bottom: 0;
-            }
-        </style>
-    </head>
+        canvas {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            background: hsla(0, 0%, 0%, 1);
+            position: fixed;
+            z-index: -1;
+        }
+
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-box {
+            background-color: rgba(54, 54, 54, 0.8);
+            padding: 2rem;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .login-box::before {
+            content: "";
+            background-image: url("Assets/logo_catalist.png");
+            background-size: 85%;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.95;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .form-label,
+        .welcome-message {
+            color: white;
+        }
+
+        .form-control {
+            color: white;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #f5c7f7;
+        }
+
+        .btn {
+            background-color: #f5c7f7;
+            border: none;
+            font-size: 1.5rem;
+            width: 100%;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
 <body>
-    <div class="background-image-top"></div>
-    <div class="background-image-bottom"></div>
+    <canvas id="canv"></canvas>
     <div class="login-container">
         <div class="login-box">
             <div class="welcome-message text-center">¡Bienvenidos a Catalist! Inicia tu sesión aquí:</div>
             <form>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="email" style="background-color: #363636;">
+                    <input type="email" class="form-control" id="email"
+                        style="background-color: #363636; color: white;">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" style="background-color: #363636;">
+                    <input type="password" class="form-control" id="password"
+                        style="background-color: #363636; color: white;">
                 </div>
-                <button type="button" class="btn btn-lg btn-block" onclick="validateLogin()" style="background-color: #f5c7f7;">Iniciar sesión</button>
+                <button type="button" class="btn btn-lg btn-block" onclick="validateLogin()"
+                    style="background-color: #f5c7f7;">Iniciar sesión</button>
             </form>
         </div>
     </div>
@@ -90,13 +110,88 @@
         function validateLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
-    
+
             if (email === "flor.narciso@upr.edu" && password === "admin") {
                 window.location.href = "menu.html";
             } else {
                 alert("Correo electrónico o contraseña incorrectos.");
             }
         }
-    </script>    
+    </script>
+    <script>
+        var c = document.getElementById('canv');
+        var $ = c.getContext('2d');
+        document.body.clientWidth;
+        var wh = 128;
+        var w2h = wh * wh;
+        c.width = c.height = wh;
+        var img = $.createImageData(wh, wh);
+        var id = img.data;
+        var t = 0;
+        var inc = 1 / wh;
+        var arr = [];
+
+        for (var k = 0; k < w2h; ++k)
+            arr[k] = Math.random() * 1.5 - 0.5;
+
+        function draw() {
+            window.requestAnimationFrame(draw);
+            t += inc;
+            for (var x = 1; x >= 0; x -= inc) {
+                for (var y = 1; y >= 0; y -= inc) {
+                    var idx = (y * wh + x) * wh * 4;
+                    var dx = x;
+                    var dy = y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    var ax = oct(x, y);
+                    var ay = oct(x + 2, y + t / 3);
+                    var bx = oct(x + dist * .3 + ax / 22 + 0.7, y + ay / 5 + 2);
+                    var by = oct(x + ax / 3 + 4 * t, y + ay / 3 + 5);
+                    var n = oct(x + bx / 5, y + by / 2) * 0.7 + .15;
+                    var d = ax * by / 2;
+                    var e = ay * bx / 2;
+
+                    id[idx + 0] = hue(n + d / 5);
+                    id[idx + 1] = hue(n / 3 + e / 5 + d);
+                    id[idx + 2] = hue(d + e);
+                    id[idx + 3] = hue(1 - ease(dist) * (e + d) * 5)
+                }
+            }
+            $.putImageData(img, 0, 0);
+        }
+
+        function hue($) {
+            return 255 * Math.min(Math.max($, 0), 1);
+        }
+
+        function ease(x) {
+            return (x > 0.2) ? 0 : i(1, 0, x * 6);
+        }
+        var db = document.body;
+
+        function i($, db, t) {
+            t = t * t * t * (6 * t * t - 15 * t + 10);
+            return $ + (db - $) * t;
+        }
+
+        function n(x, y) {
+            var i = Math.abs(x * wh + y) % w2h;
+            return arr[i];
+        }
+
+        function oct(x, y) {
+            var o1 = p(x * 3.0, y * 4.0);
+            var o2 = p(x * 4.0, y * 5.0);
+            return o1 + o2 * 0.5;
+        }
+
+        function p(x, y) {
+            var nx = Math.floor(x);
+            var ny = Math.floor(y);
+            return i(i(n(nx, ny), n(nx + 1, ny), x - nx), i(n(nx, ny + 1), n(nx + 1, ny + 1), x - nx), y - ny);
+        }
+        draw();
+    </script>
 </body>
+
 </html>
