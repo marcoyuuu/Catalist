@@ -17,7 +17,9 @@
         .navbar {
             background-color: #363636;
         }
-        body, .navbar {
+
+        body,
+        .navbar {
             background-color: #363636;
             color: white;
         }
@@ -30,91 +32,106 @@
             color: white;
         }
 
+        .nav-item.dropdown {
+            margin-left: 34.5%;
+        }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="menu.html">
-                <img src="Assets/logo_catalist.png" alt="Catalist" style="width: auto; height: 40px;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gestión
+        <a class="navbar-brand" href="menu.html">
+            <img src="Assets/logo.PNG" alt="Catalist" style="width: auto; height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestión
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="gestion_productos.html">Gestión de productos</a>
+                        <a class="dropdown-item" href="gestion_proveedores.html">Gestión de proveedores, sus pedidos y
+                            nota de entrega</a>
+                        <a class="dropdown-item" href="gestion_clientes.html">Gestión de clientes y sus compras</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reportes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="reporte_clientes_pedidos.html">Reporte de todos los clientes que
+                            realizaron pedidos</a>
+                        <a class="dropdown-item" href="reporte_pedidos_pagados.html">Reporte de los pedidos realizados
+                            pagados al contado</a>
+                        <a class="dropdown-item" href="reporte_pedidos_plazos.html">Reporte de los pedidos realizados
+                            con pagos a plazos</a>
+                        <a class="dropdown-item" href="reporte_pedidos_no_pagados.html">Reporte de pedidos realizados no
+                            pagados</a>
+                        <a class="dropdown-item" href="reporte_producto_individual.html">Reporte de un producto
+                            individual</a>
+                        <a class="dropdown-item" href="reporte_cliente_individual.html">Reporte de un cliente
+                            individual</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Facturas y Cotizaciones
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="factura_cliente_individual.html">Factura de cliente
+                            individual</a>
+                        <a class="dropdown-item" href="cotizacion.html">Cotización</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="Assets/profile_icon.png" alt="Profile" style="width: auto; height: 40px;">&#160 &#160
+                        Usuario
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="logout()">Cerrar sesión
+                            <script>
+                                function logout() {
+                                    // Agrega una nueva entrada al historial del navegador
+                                    history.pushState(null, "", window.location.href);
+                                    // Redirige al usuario a la página de inicio de sesión
+                                    sessionStorage.clear();
+                                    window.location.href = "Catalist.html";
+                                }
+                            </script>
+
+
+
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="gestion_productos.html">Gestión de productos</a>
-                            <a class="dropdown-item" href="gestion_proveedores.html">Gestión de proveedores, sus pedidos y nota de entrega</a>
-                            <a class="dropdown-item" href="gestion_clientes.html">Gestión de clientes y sus compras</a>
-                            <a class="dropdown-item" href="gestion_ordenes.html">Gestión de órdenes de productos</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Reportes
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="reporte_clientes_pedidos.html">Reporte de todos los clientes que realizaron pedidos</a>
-                            <a class="dropdown-item" href="reporte_pedidos_pagados.html">Reporte de los pedidos realizados pagados al contado</a>
-                            <a class="dropdown-item" href="reporte_pedidos_plazos.html">Reporte de los pedidos realizados con pagos a plazos</a>
-                            <a class="dropdown-item" href="reporte_pedidos_no_pagados.html">Reporte de pedidos realizados no pagados</a>
-                            <a class="dropdown-item" href="reporte_producto_individual.html">Reporte de un producto individual</a>
-                            <a class="dropdown-item" href="reporte_cliente_individual.html">Reporte de un cliente individual</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Facturas y Cotizaciones
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="factura_cliente_individual.html">Factura de cliente individual</a>
-                            <a class="dropdown-item" href="cotizacion.html">Cotización</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
     </header>
 
     <div class="container mt-5">
         <h1 class="mb-4 text-center">Reporte de un Cliente Individual</h1>
-        <form id="search-form" class="mb-4">
-            <input type="text" class="form-control" id="search-input" placeholder="Buscar clientes...">
+        <form
+            action="https://cloud.mongodb.com/v2/644987fd2918c52c5717a411#/metrics/replicaSet/6449885a197e916847483ffc/explorer/Catalist/clientes/find"
+            method="get" target="_blank" class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary mt-2">Buscar</button>
         </form>
 
-        <h2 class="mb-3">Resultados</h2>
-        <ul class="list-group" id="results-list">
-            <!-- Aquí se agregarán los resultados de la búsqueda -->
-        </ul>
-    </div>
-
-    <script>
-        document.getElementById('search-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const searchInput = document.getElementById('search-input').value;
-
-            // Aquí puedes agregar código para buscar los clientes en la base de datos según el término de búsqueda
-            // y agregar los resultados a la lista "results-list"
-
-            alert(`Buscando clientes: ${searchInput}`);
-        });
-
-        function selectClient(clientId) {
-            // Aquí puedes agregar código para manejar la selección de un cliente
-            // según el ID del cliente seleccionado
-
-            alert(`Cliente seleccionado: ${clientId}`);
-        }
-    </script>
-    
-    <footer style="background-color: #363636; color: white; text-align: center; padding: 20px;">
-        Catalist © 2023 All rights reserved
-    </footer>
+        <footer style="background-color: #363636; color: white; text-align: center; padding: 20px;">
+            Catalist © 2023 All rights reserved
+        </footer>
 </body>
 
 </html>

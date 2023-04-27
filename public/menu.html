@@ -27,19 +27,29 @@
 
         body,
         .navbar {
+
             color: white;
         }
 
         .navbar-light .navbar-nav .nav-link {
+
             color: white;
         }
 
         .navbar-light .navbar-brand {
+            align-items: end;
+
             color: white;
         }
 
+        .nav-item.dropdown {
+            margin-left: 34.5%;
+        }
+
+
         body,
         .bg-dark {
+
             color: white;
         }
 
@@ -103,7 +113,6 @@
                         <a class="dropdown-item" href="gestion_proveedores.html">Gestión de proveedores, sus pedidos y
                             nota de entrega</a>
                         <a class="dropdown-item" href="gestion_clientes.html">Gestión de clientes y sus compras</a>
-                        <a class="dropdown-item" href="gestion_ordenes.html">Gestión de órdenes de productos</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -137,6 +146,30 @@
                         <a class="dropdown-item" href="cotizacion.html">Cotización</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="Assets/profile_icon.png" alt="Profile" style="width: auto; height: 40px;">&#160 &#160
+                        Usuario
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="logout()">Cerrar sesión
+                            <script>
+                                function logout() {
+                                    // Agrega una nueva entrada al historial del navegador
+                                    history.pushState(null, "", window.location.href);
+                                    // Redirige al usuario a la página de inicio de sesión
+                                    sessionStorage.clear();
+                                    window.location.href = "Catalist.html";
+                                }
+                            </script>
+
+
+
+                        </a>
+
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -145,7 +178,7 @@
     </div>
     <section class="container my-5">
         <div class="container my-5">
-            <h2 class="text mb-4">Bienvenido a Catalist</h2>
+            <h2 class="text mb-4">Introducción: </h2>
             <div class="row">
                 <div class="col-md-6">
                     <p class="lead">Catalist es una innovadora solución de gestión de ventas y facturación diseñada para
@@ -163,7 +196,6 @@
         </div>
     </section>
     <div class="container my-5">
-        <h2 class="text-center mb-4">Introducción a Catalist</h2>
         <div class="row">
             <div class="col-md-6">
                 <h3>Gestión eficiente de productos químicos</h3>
@@ -192,19 +224,16 @@
                     normativas aplicables, lo que te permite concentrarte en hacer crecer tu negocio con confianza.</p>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <h3>Integración con otros sistemas</h3>
-                <p>Catalist se integra fácilmente con otros sistemas empresariales, comoERP, CRM y sistemas de
-                    facturación, lo que te permite simplificar y automatizar aún más tus procesos de negocio.</p>
-            </div>
-            <div class="col-md-6">
-                <h3>Soporte y actualizaciones</h3>
-                <p>Ofrecemos soporte técnico y actualizaciones regulares para asegurar que tu plataforma Catalist
-                    funcione sin problemas y se mantenga al día con las últimas tendencias y regulaciones en la
-                    industria química.</p>
-            </div>
-        </div>
+
+        <h3 class="text-center mb-4">Soporte y actualizaciones</h3>
+        <p class="text-center mb-4">Ofrecemos soporte técnico y actualizaciones regulares para asegurar que tu
+            plataforma Catalist
+            funcione sin problemas y se mantenga al día con las últimas tendencias y regulaciones en la
+            industria química.</p>
+
+    </div>
+    </div>
+
     </div>
 
     <footer class="container my-5">
@@ -212,9 +241,6 @@
             <p class="text-center mb-0">Catalist © 2023 All rights reserved</p>
         </div>
     </footer>
-</body>
-
-</html>
 </body>
 
 </html>

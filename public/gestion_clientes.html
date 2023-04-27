@@ -31,13 +31,17 @@
         .navbar-light .navbar-brand {
             color: white;
         }
+
+        .nav-item.dropdown {
+            margin-left: 34.5%;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="menu.html">
-            <img src="Assets/logo_catalist.png" alt="Catalist" style="width: auto; height: 40px;">
+            <img src="Assets/logo.PNG" alt="Catalist" style="width: auto; height: 40px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +59,6 @@
                         <a class="dropdown-item" href="gestion_proveedores.html">Gestión de proveedores, sus pedidos y
                             nota de entrega</a>
                         <a class="dropdown-item" href="gestion_clientes.html">Gestión de clientes y sus compras</a>
-                        <a class="dropdown-item" href="gestion_ordenes.html">Gestión de órdenes de productos</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -89,13 +92,37 @@
                         <a class="dropdown-item" href="cotizacion.html">Cotización</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="Assets/profile_icon.png" alt="Profile" style="width: auto; height: 40px;">&#160 &#160
+                        Usuario
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="logout()">Cerrar sesión
+                            <script>
+                                function logout() {
+                                    // Agrega una nueva entrada al historial del navegador
+                                    history.pushState(null, "", window.location.href);
+                                    // Redirige al usuario a la página de inicio de sesión
+                                    sessionStorage.clear();
+                                    window.location.href = "Catalist.html";
+                                }
+                            </script>
+
+
+
+                        </a>
+
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
     </header>
 
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Gestión de Clientes</h1>
+        <h1 class="mb-4 text-center">Gestión de Clientes y sus Compras</h1>
         <form id="client-form">
             <div class="mb-3">
                 <label for="client-name" class="form-label">Nombre del Cliente *</label>
@@ -114,6 +141,19 @@
                 <input type="text" class="form-control" id="client-address" required>
             </div>
             <div class="mb-3">
+                <label for="client-address" class="form-label">Nombre de producto *</label>
+                <input type="text" class="form-control" id="pruduct-name" required>
+            </div>
+            <div class="mb-3">
+                <label for="pay_option" class="form-label">Forma de pago *</label>
+                <select class="form-select" id="pay_option" required>
+                    <option value="">Seleccione una forma de pago</option>
+                    <option value="al_contado">Al contado</option>
+                    <option value="a_plazos">A plazos</option>
+                    <option value="no_pagados">No pagados</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="client-company" class="form-label">Empresa</label>
                 <input type="text" class="form-control" id="client-company">
             </div>
@@ -126,28 +166,53 @@
     </div>
 
     <script>
-        document.getElementById('client-form').addEventListener('submit', async function (event) {
+        document.getElementById('client-form').addEventListener('submit', (event) => {
             event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
 
-            try {
-                const response = await fetch('/clientes', {
+            const clientName = document.getElementById('client-name').value;
+            const clientEmail = document.getElementById('client-email').value;
+            const clientPhone = document.getElementById('client-phone').value;
+            const clientAddress = document.getElementById('client-address').value;
+            const productName = document.getElementById('pruduct-name').value;
+            const payOption = document.getElementById('pay_option').value;
+            const clientCompany = document.getElementById('client-company').value;
+            const clientNotes = document.getElementById('client-notes').value;
+
+            const clientData = {
+                name: clientName,
+                email: clientEmail,
+                phone: clientPhone,
+                address: clientAddress,
+                product: productName,
+                pay: payOption,
+                company: clientCompany,
+                notes: clientNotes,
+                type: 'cliente',
+            };
+
+            fetch('/clientes', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(clientData),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    // Handle success, e.g., show a message or reset the form
+                    if (data.message === 'Cliente creado con éxito') {
+                        alert('Cliente creado con éxito');
+                    } else {
+                        alert('Error al crear cliente');
+                    }
+                    document.getElementById('client-form').reset();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Handle error, e.g., show an error message
+                    alert('Error al crear cliente: ' + error.message);
                 });
-
-                if (response.ok) {
-                    alert('Cliente creado con éxito');
-                } else {
-                    alert('Error al crear cliente');
-                }
-            } catch (error) {
-                alert('Error al crear cliente: ' + error.message);
-            }
         });
     </script>
 
