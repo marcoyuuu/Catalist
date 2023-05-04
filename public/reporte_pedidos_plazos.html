@@ -122,13 +122,56 @@
     </header>
 
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Reporte de Pedidos Pagados A Plazos</h1>
-        <form
-            action="https://cloud.mongodb.com/v2/644987fd2918c52c5717a411#/metrics/replicaSet/6449885a197e916847483ffc/explorer/Catalist/clientes/find"
-            method="get" target="_blank" class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary mt-2">Buscar</button>
-        </form>
-    </div>
+        <h1 class="mb-4 text-center">Reporte de los pedidos realizados con pagos a plazos</h1>
+        <div class="d-flex justify-content-center mb-4">
+          <button id="buscar" class="btn" style="background-color: #f5c7f7;">Buscar</button>
+        </div>
+        <div id="reporte" class="mt-4"></div>
+      </div>
+      
+      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+      
+      <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyBVa3E_FjHgT2tdby-5bRieK_pJTyJ3njs",
+          authDomain: "catalist-a076a.firebaseapp.com",
+          projectId: "catalist-a076a",
+          storageBucket: "catalist-a076a.appspot.com",
+          messagingSenderId: "693759856140",
+          appId: "1:693759856140:web:ec4abb7b93674edc3a6829",
+          measurementId: "G-MQH3EE6FP8"
+        };
+        firebase.initializeApp(firebaseConfig);
+      
+        var db = firebase.firestore();
+      
+        document.getElementById('buscar').addEventListener('click', function() {
+          db.collection('clientes').where('pago', '==', 'a_plazos').get().then((querySnapshot) => {
+            let reporteDiv = document.getElementById('reporte');
+            reporteDiv.innerHTML = ''; // Limpiar el div antes de añadir nuevo contenido
+            querySnapshot.forEach((doc) => {
+              let cliente = doc.data();
+              let clienteInfo = `
+                <div class="card mb-3">
+                  <div class="card-body" style="color: black;">
+                    <h5 class="card-title">${cliente.nombre}</h5>
+                    <p class="card-text">Correo: ${cliente.email}</p>
+                    <p class="card-text">Teléfono: ${cliente.telefono}</p>
+                    <p class="card-text">Dirección: ${cliente.direccion}</p>
+                    <p class="card-text">Producto: ${cliente.producto}</p>
+                    <p class="card-text">Forma de pago: ${cliente.pago}</p>
+                    <p class="card-text">Empresa: ${cliente.empresa}</p>
+                    <p class="card-text">Notas: ${cliente.notas}</p>
+                  </div>
+                </div>
+              `;
+              reporteDiv.innerHTML += clienteInfo;
+            });
+          });
+        });
+      </script>
+      
 
     <footer style="background-color: #363636; color: white; text-align: center; padding: 20px;">
         Catalist © 2023 All rights reserved

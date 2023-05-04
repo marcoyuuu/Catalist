@@ -128,7 +128,9 @@
             </div>
             <div class="mb-3">
                 <label for="supplier" class="form-label">Proveedor *</label>
-                <input type="text" class="form-control" id="supplier" required>
+                <select id="supplier" class="form-control" required>
+                    <option value="">Seleccione un proveedor</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Descripción</label>
@@ -154,64 +156,68 @@
                 <label for="safety-data" class="form-label">Información de Seguridad</label>
                 <input type="text" class="form-control" id="safety-data">
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="d-flex justify-content-center mb-4">
+                <button id="submit" class="btn" style="background-color: #f5c7f7;">Guardar</button>
+            </div>
         </form>
     </div>
 
-    <main class="container mt-4">
-        <!-- Aquí puedes agregar el contenido de la página de gestión de productos -->
-    </main>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script>
-        document.getElementById('product-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const productName = document.getElementById('product-name').value;
-            const supplier = document.getElementById('supplier').value;
-            const description = document.getElementById('description').value;
-            const inventoryNumber = document.getElementById('inventory-number').value;
-            const price = document.getElementById('price').value;
-            const quantity = document.getElementById('quantity').value;
-            const chemicalFormula = document.getElementById('chemical-formula').value;
-            const safetyData = document.getElementById('safety-data').value;
+        var firebaseConfig = {
+            apiKey: "AIzaSyBVa3E_FjHgT2tdby-5bRieK_pJTyJ3njs",
+            authDomain: "catalist-a076a.firebaseapp.com",
+            projectId: "catalist-a076a",
+            storageBucket: "catalist-a076a.appspot.com",
+            messagingSenderId: "693759856140",
+            appId: "1:693759856140:web:ec4abb7b93674edc3a6829",
+            measurementId: "G-MQH3EE6FP8"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-            const productData = {
-                name: productName,
-                supplier: supplier,
-                description: description,
-                inventoryNumber: inventoryNumber,
-                price: price,
-                quantity: quantity,
-                chemicalFormula: chemicalFormula,
-                safetyData: safetyData,
-                type: 'producto',
-            };
+        var db = firebase.firestore();
 
-            fetch('/clientes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(productData),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log('Success:', data);
-                    alert('Producto guardado exitosamente');
-                    document.getElementById('product-form').reset();
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    error.response.text().then((text) => {
-                        console.log('Response text:', text);
-                    });
-                    alert('Error al guardar el producto');
-                });
+        // Fetch all suppliers
+        db.collection('proveedores').get().then((querySnapshot) => {
+            const supplierSelect = document.querySelector('#supplier');
+            querySnapshot.forEach((doc) => {
+                const supplierData = doc.data();
 
+                // Create a new option element
+                const optionEl = document.createElement('option');
+                optionEl.value = supplierData.nombre; // Use supplier ID as the value
+                optionEl.textContent = supplierData.nombre; // Use supplier name as the display text
+
+                // Add the option to the select dropdown
+                supplierSelect.appendChild(optionEl);
+            });
+        });
+
+
+        const form = document.querySelector('#product-form');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            db.collection('productos').add({
+                nombre: form['product-name'].value,
+                proveedor: form['supplier'].value,
+                descripcion: form['description'].value,
+                inventario: form['inventory-number'].value,
+                precio: form['price'].value,
+                cantidad: form['quantity'].value,
+                formula: form['chemical-formula'].value,
+                seguridad: form['safety-data'].value,
+            }).then(function () {
+                alert('¡Producto guardado exitosamente!');
+                // Clear form fields after submission
+                form.reset();
+            }).catch(function (error) {
+                alert('¡Error guardando producto: ', error);
+            });
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
 
     <footer style="background-color: #363636; color: white; text-align: center; padding: 20px;">
         Catalist © 2023 All rights reserved

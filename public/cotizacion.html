@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización de Productos</title>
+    <title>Cotización</title>
     <!-- Agregar referencia a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -121,74 +121,125 @@
     </nav>
     </header>
 
+
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Cotización de Productos</h1>
-        <form id="quotation-form">
-            <div class="mb-3">
-                <label for="client" class="form-label">Cliente *</label>
-                <input type="text" class="form-control" id="client" required>
-            </div>
-            <div class="mb-3">
-                <label for="product" class="form-label">Producto *</label>
-                <input type="text" class="form-control" id="product" required>
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">Cantidad *</label>
-                    <input type="number" class="form-control" id="quantity" min="1" required>
-                </div>
-                <div class="mb-3">
-                    <label for="unit-price" class="form-label">Precio Unitario *</label>
-                    <input type="number" class="form-control" id="unit-price" step="0.01" required>
-                </div>
-                <div class="mb-3">
-                    <label for="quotation-details" class="form-label">Detalles de la Cotización</label>
-                    <textarea class="form-control" id="quotation-details" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
+        <h1 class="mb-4 text-center">Cotización</h1>
+        <div class="mb-3">
+            <label for="client-selection">Seleccione un cliente:</label>
+            <select class="form-control" id="client-selection">
+                <!-- Los clientes se llenarán aquí desde Firebase -->
+            </select>
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+            <button id="generar" class="btn" style="background-color: #f5c7f7;">Generar</button>
+        </div>
+        <div id="cotizacion" class="mt-4"></div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script>
-        document.getElementById('quotation-form').addEventListener('submit', (event) => {
-            event.preventDefault();
+        var firebaseConfig = {
+            apiKey: "AIzaSyBVa3E_FjHgT2tdby-5bRieK_pJTyJ3njs",
+            authDomain: "catalist-a076a.firebaseapp.com",
+            projectId: "catalist-a076a",
+            storageBucket: "catalist-a076a.appspot.com",
+            messagingSenderId: "693759856140",
+            appId: "1:693759856140:web:ec4abb7b93674edc3a6829",
+            measurementId: "G-MQH3EE6FP8"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-            const client = document.getElementById('client').value;
-            const product = document.getElementById('product').value;
-            const quantity = document.getElementById('quantity').value;
-            const unitPrice = document.getElementById('unit-price').value;
-            const quotationDetails = document.getElementById('quotation-details').value;
+        var db = firebase.firestore();
 
-            const quotationData = {
-                client: client,
-                product: product,
-                quantity: quantity,
-                unitPrice: unitPrice,
-                quotationDetails: quotationDetails,
-                type: 'cotizacion_producto',
-            };
+        // Obtén una referencia al menú desplegable de clientes
+        var clientSelection = document.getElementById('client-selection');
 
-            fetch('/clientes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(quotationData),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    // Handle success, e.g., show a message or reset the form
-                    if (data.message === 'Cotización de producto creada con éxito') {
-                        alert('Cotización de producto creada con éxito');
-                    } else {
-                        alert('Cotización de producto creada con éxito');
-                    }
-                    document.getElementById('quotation-form').reset();
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    // Handle error, e.g., show an error message
-                    alert('Error al crear la cotización. Por favor, intente nuevamente');
-                });
+        // Llena el menú desplegable con los nombres de todos los clientes
+        db.collection('clientes').get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                let option = document.createElement('option');
+                option.text = doc.data().nombre;
+                option.value = doc.id;
+                clientSelection.add(option);
+            });
+        });
+
+        document.getElementById('generar').addEventListener('click', async function () {
+            // Busca la información del cliente seleccionado
+            let clienteRef = await db.collection('clientes').doc(clientSelection.value).get();
+            let cliente = clienteRef.data();
+
+            // Obtiene el número de cotizacion actual
+            let cotizacionRef = await db.collection('configuracion').doc('cotizacion').get();
+            let numeroCotizacion = cotizacionRef.data().numero;
+
+            // Genera la cotización con la información del cliente y el producto
+            let cotizacionInfo = `
+                <div style="font-family: Arial, sans-serif; font-size: 14px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <h2>Tu Empresa</h2>
+                            <p>Dirección de tu empresa</p>
+                            <p>Teléfono: +00 000 000 000</p>
+                            <p>Email: email@tuempresa.com</p>
+                        </div>
+                        <div>
+                            <h2>Cotización</h2>
+                            <p>Número de cotización: ${numeroCotizacion}</p>
+                            <p>Fecha: ${new Date().toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3>Información del Cliente</h3>
+                        <p>Nombre: ${cliente.nombre}</p>
+                        <p>Email: ${cliente.email}</p>
+                        <p>Teléfono: ${cliente.telefono}</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3>Detalle del Producto</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #f5c7f7; text-align: left;">
+                                    <th style="padding: 8px; border: 1px solid #000;">Producto</th>
+                                    <th style="padding: 8px; border: 1px solid #000;">Cantidad</th>
+                                    <th style="padding: 8px; border: 1px solid #000;">Precio unitario</th>
+                                    <th style="padding: 8px; border: 1px solid #000;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.producto}</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.cantidad}</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.precio}</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.cantidad * cliente.precio}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <div>
+                            <p>Subtotal: ${cliente.cantidad * cliente.precio}</p>
+                            <p>IVA (21%): ${((cliente.cantidad * cliente.precio) * 0.21).toFixed(2)}</p>
+                            <h4>Total: ${((cliente.cantidad * cliente.precio) * 1.21).toFixed(2)}</h4>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>Esta cotización se proporciona como una estimación de los costos asociados con los productos o servicios solicitados. Tenga en cuenta que esta cotización no es vinculante y puede estar sujeta a cambios según las negociaciones o las condiciones del mercado antes de realizar una transacción.</p>
+                        <p>Las cotizaciones son útiles para que los clientes comparen precios y servicios entre diferentes proveedores antes de tomar una decisión de compra. Si tiene alguna pregunta o necesita más información, no dude en ponerse en contacto con nuestro equipo de ventas.</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('cotizacion').innerHTML = cotizacionInfo;
+
+            // Incrementa el número de cotizacion en la base de datos
+            db.collection('configuracion').doc('cotizacion').update({
+                numero: firebase.firestore.FieldValue.increment(1)
+            });
         });
     </script>
 
