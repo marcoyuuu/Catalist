@@ -210,18 +210,26 @@
 
         const form = document.querySelector('#client-form');
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Fetch selected product's data
+            const selectedProductId = form['product-name'].value;
+            const productDoc = await db.collection('productos').where("nombre", "==", selectedProductId).get();
+            const productData = productDoc.docs[0].data();
+            const productPrice = productData.precio;
+
             db.collection('clientes').add({
                 nombre: form['client-name'].value,
                 email: form['client-email'].value,
                 telefono: form['client-phone'].value,
                 direccion: form['client-address'].value,
-                producto: form['product-name'].value,
+                producto: productData.nombre,
                 cantidad: form['product-quantity'].value,
                 pago: form['pay_option'].value,
                 empresa: form['client-company'].value,
                 notas: form['client-notes'].value,
+                precio: productPrice // Agregamos el precio del producto aquí
             }).then(function () {
                 alert('¡Cliente guardado exitosamente!');
                 // Clear form fields after submission
