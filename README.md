@@ -23,7 +23,7 @@ Antes de comenzar, asegúrate de tener lo siguiente:
 
 
 1. Abre la página principal del proyecto en tu navegador web usando el enlace: "https://catalist-a076a.web.app".
-2. Inicia tu sesión usuario: 'Admin', contraseña: 'Admin'.
+2. Inicia tu sesión usuario: 'admin', contraseña: 'admin'.
 3. Utiliza la barra de navegación en la parte superior de la página para acceder a las diferentes áreas del proyecto, como "Gestión", "Reportes" y "Facturas y Cotizaciones".
 4. Sigue las instrucciones en cada página para realizar las tareas correspondientes, como agregar productos, administrar clientes y generar informes.
 
