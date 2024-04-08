@@ -43,4 +43,4 @@ Si encuentras algún problema o tienes alguna pregunta sobre el uso de Catalist,
 ## Licencia
 
 
-Copyright (c) Marco Yu, Eloi Torres y Javier Flores
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
