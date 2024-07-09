@@ -11,6 +11,9 @@ Catalist es una solución de gestión de ventas y facturación diseñada especí
 - Integración con otros sistemas empresariales.
 - Soporte y actualizaciones.
 
+## Documentación
+https://sites.google.com/upr.edu/catalist
+
 
 ## Requisitos previos
 
