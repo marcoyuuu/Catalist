@@ -48,4 +48,4 @@ Si encuentras algún problema o tienes alguna pregunta sobre el uso de Catalist,
 ## Licencia
 
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Este proyecto está licenciado bajo la licencia MIT; consulte el archivo [LICENCIA](LICENSE) para obtener más detalles.
