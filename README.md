@@ -27,5 +27,8 @@ Haz un fork del repositorio, trabaja en una rama separada, y envía un pull requ
 ### Soporte
 Reporta problemas o preguntas en el repositorio de GitHub.
 
-### Licencia
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## Licencia
+
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
