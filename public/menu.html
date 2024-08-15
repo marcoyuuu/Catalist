@@ -1,246 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalist - Menú</title>
-    <!-- Agregar referencia a Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Agregar referencia a jQuery y Popper.js necesarios para Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <!-- Agregar referencia a Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include the global script with the logout function -->
+    <script src="scripts.js"></script>
+    <script>
+      // Función para cargar componentes
+      function loadComponent(file, elementId) {
+        fetch(file)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(elementId).innerHTML = data;
+          });
+      }
+      // Cargar los componentes una vez que el DOM esté listo
+      document.addEventListener('DOMContentLoaded', () => {
+        loadComponent('navbar.html', 'navbar-placeholder');
+      });
+    </script>
     <style>
-        body {
-            background-repeat: no-repeat;
-            background-size: 100%;
-            background-image: linear-gradient(to bottom right, #F5C7F7 0%, #A393EB 50%, #363636 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
+      body {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-image: linear-gradient(
+          to bottom right,
+          #f5c7f7 0%,
+          #a393eb 50%,
+          #363636 100%
+        );
+        background-size: 400% 400%;
+        animation: gradientBG 10s ease infinite;
+      }
+
+      /* Custom styles for navbar to ensure consistent spacing */
+      .navbar {
+        background-color: #363636;
+      }
+      .navbar .navbar-nav .nav-link {
+        color: white;
+        margin-right: 15px; /* Adjusts spacing between nav items */
+      }
+      .navbar .navbar-nav .nav-link:hover {
+        color: #ccc; /* Change color on hover */
+      }
+      .navbar-brand img {
+        margin-right: 10px; /* Space between logo and links */
+      }
+      .navbar-nav {
+        width: 100%; /* Make the navbar take the full width */
+        justify-content: space-around; /* Space items evenly across the width */
+      }
+      /* Adjust the padding and margin for the documentacion tab specifically */
+      .navbar .navbar-nav .nav-item {
+        margin-left: 10px;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
         }
-
-        .navbar {
-            background-color: #404040;
+        50% {
+          background-position: 100% 50%;
         }
-
-        body,
-        .navbar {
-
-            color: white;
+        100% {
+          background-position: 0% 50%;
         }
-
-        .navbar-light .navbar-nav .nav-link {
-
-            color: white;
-        }
-
-        .navbar-light .navbar-brand {
-            align-items: end;
-
-            color: white;
-        }
-
-        .nav-item.dropdown {
-            margin-left: 34.5%;
-        }
-
-
-        body,
-        .bg-dark {
-
-            color: white;
-        }
-
-        .bg-secondary {
-            background-color: #404040;
-        }
-
-        .section-dark {
-            color: white;
-        }
-
-        .logo-container {
-            margin: 0;
-            padding: 0;
-        }
-
-        .section-dark {
-            margin: 0;
-            padding: 0;
-        }
-
-        .container-fluid {
-            margin: 0;
-            padding: 0;
-        }
-
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
+  <body>
+    <!-- Carga del componente de navegación -->
+    <div id="navbar-placeholder"></div>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="menu.html">
-            <img src="Assets/logo.PNG" alt="Catalist" style="width: auto; height: 40px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Gestión
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="gestion_productos.html">Gestión de productos</a>
-                        <a class="dropdown-item" href="gestion_proveedores.html">Gestión de proveedores, sus pedidos y
-                            nota de entrega</a>
-                        <a class="dropdown-item" href="gestion_clientes.html">Gestión de clientes y sus compras</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Reportes
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="reporte_clientes_pedidos.html">Reporte de todos los clientes que
-                            realizaron pedidos</a>
-                        <a class="dropdown-item" href="reporte_pedidos_pagados.html">Reporte de los pedidos realizados
-                            pagados al contado</a>
-                        <a class="dropdown-item" href="reporte_pedidos_plazos.html">Reporte de los pedidos realizados
-                            con pagos a plazos</a>
-                        <a class="dropdown-item" href="reporte_pedidos_no_pagados.html">Reporte de pedidos realizados no
-                            pagados</a>
-                        <a class="dropdown-item" href="reporte_producto_individual.html">Reporte de un producto
-                            individual</a>
-                        <a class="dropdown-item" href="reporte_cliente_individual.html">Reporte de un cliente
-                            individual</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Facturas y Cotizaciones
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="factura_cliente_individual.html">Factura de cliente
-                            individual</a>
-                        <a class="dropdown-item" href="cotizacion.html">Cotización</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="Assets/profile_icon.png" alt="Profile" style="width: auto; height: 40px;">&#160 &#160
-                        Usuario
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" onclick="logout()">Cerrar sesión
-                            <script>
-                                function logout() {
-                                    // Agrega una nueva entrada al historial del navegador
-                                    history.pushState(null, "", window.location.href);
-                                    // Redirige al usuario a la página de inicio de sesión
-                                    sessionStorage.clear();
-                                    window.location.href = "Catalist.html";
-                                }
-                            </script>
-
-
-
-                        </a>
-
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div class="container-fluid p-0">
-        <img src="Assets/logo_Catalist - Copy.png" alt="Catalist Banner" class="img-fluid w-100" />
+      <img
+        src="Assets/logo_Catalist - Copy.png"
+        alt="Catalist Banner"
+        class="img-fluid w-100"
+      />
     </div>
+
     <section class="container my-5">
-        <div class="container my-5">
-            <h2 class="text mb-4">Introducción: </h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="lead">Catalist es una innovadora solución de gestión de ventas y facturación diseñada para
-                        ayudarte a llevar tus operaciones comerciales al siguiente nivel. Con nuestra plataforma
-                        intuitiva y fácil de usar, puedes administrar tus productos, clientes, proveedores y más con
-                        facilidad y eficiencia.</p>
-                    <p>Descubre cómo Catalist puede transformar tu negocio y permitirte tomar decisiones informadas y
-                        estratégicas en tiempo real. Únete a la creciente comunidad de usuarios satisfechos de Catalist
-                        y experimenta la diferencia hoy mismo.</p>
-                </div>
-                <div class="col-md-6 d-flex align-items-center">
-                    <img src="Assets/image.jpg" alt="Catalist Dashboard" class="img-fluid" />
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="container my-5">
+      <div class="container my-5">
+        <h2 class="text mb-4">Introducción:</h2>
         <div class="row">
-            <div class="col-md-6">
-                <h3>Gestión eficiente de productos químicos</h3>
-                <p>Catalist es una plataforma integral para la gestión de productos químicos, proveedores y clientes en
-                    la industria química. Nuestra aplicación facilita el seguimiento y la organización de información
-                    relevante, así como la generación de informes y la toma de decisiones basada en datos.</p>
-            </div>
-            <div class="col-md-6">
-                <h3>Optimización de procesos</h3>
-                <p>Con Catalist, puedes optimizar los procesos de negocio relacionados con la compra, venta y
-                    almacenamiento de productos químicos. Esto te permitirá mejorar la eficiencia de tu negocio, reducir
-                    costos y aumentar la satisfacción del cliente.</p>
-            </div>
+          <div class="col-md-6">
+            <p class="lead">
+              Catalist es una innovadora solución de gestión de ventas y
+              facturación diseñada para ayudarte a llevar tus operaciones
+              comerciales al siguiente nivel. Con nuestra plataforma intuitiva y
+              fácil de usar, puedes administrar tus productos, clientes,
+              proveedores y más con facilidad y eficiencia.
+            </p>
+            <p>
+              Descubre cómo Catalist puede transformar tu negocio y permitirte
+              tomar decisiones informadas y estratégicas en tiempo real. Únete a
+              la creciente comunidad de usuarios satisfechos de Catalist y
+              experimenta la diferencia hoy mismo.
+            </p>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <img
+              src="Assets/image.jpg"
+              alt="Catalist Dashboard"
+              class="img-fluid"
+            />
+          </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <h3>Informes y análisis</h3>
-                <p>Catalist ofrece una amplia gama de informes y análisis para ayudarte a tomar decisiones informadas
-                    sobre la gestión de tu negocio. Puedes generar informes de ventas, pedidos, inventario, clientes y
-                    proveedores para obtener información valiosa y mejorar tus operaciones.</p>
-            </div>
-            <div class="col-md-6">
-                <h3>Seguridad y cumplimiento</h3>
-                <p>La seguridad de los datos y el cumplimiento de las regulaciones son aspectos críticos en la industria
-                    química. Catalist se asegura de que todos los datos estén protegidos y cumplan con las leyes y
-                    normativas aplicables, lo que te permite concentrarte en hacer crecer tu negocio con confianza.</p>
-            </div>
+      </div>
+    </section>
+
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Gestión eficiente de productos químicos</h3>
+          <p>
+            Catalist es una plataforma integral para la gestión de productos
+            químicos, proveedores y clientes en la industria química. Nuestra
+            aplicación facilita el seguimiento y la organización de información
+            relevante, así como la generación de informes y la toma de
+            decisiones basada en datos.
+          </p>
         </div>
+        <div class="col-md-6">
+          <h3>Optimización de procesos</h3>
+          <p>
+            Con Catalist, puedes optimizar los procesos de negocio relacionados
+            con la compra, venta y almacenamiento de productos químicos. Esto te
+            permitirá mejorar la eficiencia de tu negocio, reducir costos y
+            aumentar la satisfacción del cliente.
+          </p>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h3>Informes y análisis</h3>
+          <p>
+            Catalist ofrece una amplia gama de informes y análisis para ayudarte
+            a tomar decisiones informadas sobre la gestión de tu negocio. Puedes
+            generar informes de ventas, pedidos, inventario, clientes y
+            proveedores para obtener información valiosa y mejorar tus
+            operaciones.
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h3>Seguridad y cumplimiento</h3>
+          <p>
+            La seguridad de los datos y el cumplimiento de las regulaciones son
+            aspectos críticos en la industria química. Catalist se asegura de
+            que todos los datos estén protegidos y cumplan con las leyes y
+            normativas aplicables, lo que te permite concentrarte en hacer
+            crecer tu negocio con confianza.
+          </p>
+        </div>
+      </div>
 
-        <h3 class="text-center mb-4">Soporte y actualizaciones</h3>
-        <p class="text-center mb-4">Ofrecemos soporte técnico y actualizaciones regulares para asegurar que tu
-            plataforma Catalist
-            funcione sin problemas y se mantenga al día con las últimas tendencias y regulaciones en la
-            industria química.</p>
-
-    </div>
-    </div>
-
+      <h3 class="text-center mb-4">Soporte y actualizaciones</h3>
+      <p class="text-center mb-4">
+        Ofrecemos soporte técnico y actualizaciones regulares para asegurar que
+        tu plataforma Catalist funcione sin problemas y se mantenga al día con
+        las últimas tendencias y regulaciones en la industria química.
+      </p>
     </div>
 
     <footer class="container my-5">
-        <div class="container">
-            <p class="text-center mb-0">Catalist © 2023 All rights reserved</p>
-        </div>
+      <div class="container">
+        <p class="text-center mb-0">Catalist © 2023 All rights reserved</p>
+      </div>
     </footer>
-</body>
-
+  </body>
 </html>

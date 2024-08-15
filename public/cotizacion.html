@@ -1,181 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cotización</title>
+    <link rel="icon" href="Assets/logo.png" type="image/x-icon" />
     <!-- Agregar referencia a Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <!-- Agregar referencia a jQuery y Popper.js necesarios para Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Agregar referencia a Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include the global script with the logout function -->
+    <script src="scripts.js"></script>
+    <script>
+      // Función para cargar componentes
+      function loadComponent(file, elementId) {
+        fetch(file)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(elementId).innerHTML = data;
+          });
+      }
+      // Cargar los componentes una vez que el DOM esté listo
+      document.addEventListener('DOMContentLoaded', () => {
+        loadComponent('navbar.html', 'navbar-placeholder');
+      });
+    </script>
     <style>
-        .navbar {
-            background-color: #363636;
-        }
+      body {
+          background-color: #363636;
+          color: white;
+      }
 
-        body,
-        .navbar {
-            background-color: #363636;
-            color: white;
-        }
+      .navbar {
+          background-color: #363636;
+      }
 
-        .navbar-light .navbar-nav .nav-link {
-            color: white;
-        }
+      .navbar .navbar-nav .nav-link {
+          color: white;
+          margin-right: 15px;
+      }
 
-        .navbar-light .navbar-brand {
-            color: white;
-        }
+      .navbar .navbar-nav .nav-link:hover {
+          color: #ccc;
+      }
 
-        .nav-item.dropdown {
-            margin-left: 34.5%;
-        }
-    </style>
-</head>
+      .navbar-brand img {
+          margin-right: 10px;
+      }
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="menu.html">
-            <img src="Assets/logo.PNG" alt="Catalist" style="width: auto; height: 40px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Gestión
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="gestion_productos.html">Gestión de productos</a>
-                        <a class="dropdown-item" href="gestion_proveedores.html">Gestión de proveedores, sus pedidos y
-                            nota de entrega</a>
-                        <a class="dropdown-item" href="gestion_clientes.html">Gestión de clientes y sus compras</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Reportes
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="reporte_clientes_pedidos.html">Reporte de todos los clientes que
-                            realizaron pedidos</a>
-                        <a class="dropdown-item" href="reporte_pedidos_pagados.html">Reporte de los pedidos realizados
-                            pagados al contado</a>
-                        <a class="dropdown-item" href="reporte_pedidos_plazos.html">Reporte de los pedidos realizados
-                            con pagos a plazos</a>
-                        <a class="dropdown-item" href="reporte_pedidos_no_pagados.html">Reporte de pedidos realizados no
-                            pagados</a>
-                        <a class="dropdown-item" href="reporte_producto_individual.html">Reporte de un producto
-                            individual</a>
-                        <a class="dropdown-item" href="reporte_cliente_individual.html">Reporte de un cliente
-                            individual</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Facturas y Cotizaciones
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="factura_cliente_individual.html">Factura de cliente
-                            individual</a>
-                        <a class="dropdown-item" href="cotizacion.html">Cotización</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="Assets/profile_icon.png" alt="Profile" style="width: auto; height: 40px;">&#160 &#160
-                        Usuario
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" onclick="logout()">Cerrar sesión
-                            <script>
-                                function logout() {
-                                    // Agrega una nueva entrada al historial del navegador
-                                    history.pushState(null, "", window.location.href);
-                                    // Redirige al usuario a la página de inicio de sesión
-                                    sessionStorage.clear();
-                                    window.location.href = "Catalist.html";
-                                }
-                            </script>
+      .navbar-nav {
+          width: 100%;
+          justify-content: space-around;
+      }
 
+      .navbar .navbar-nav .nav-item {
+          margin-left: 10px;
+      }
 
+      .container {
+          background-color: #363636;
+          color: white;
+          padding: 20px;
+          border-radius: 5px;
+      }
 
-                        </a>
+      footer {
+          background-color: #363636;
+          color: white;
+          text-align: center;
+          padding: 20px;
+      }
+  </style>
+  </head>
 
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    </header>
-
+  <body>
+    <!-- Carga del componente de navegación -->
+    <div id="navbar-placeholder"></div>
 
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Cotización</h1>
-        <div class="mb-3">
-            <label for="client-selection">Seleccione un cliente:</label>
-            <select class="form-control" id="client-selection">
-                <!-- Los clientes se llenarán aquí desde Firebase -->
-            </select>
-        </div>
-        <div class="d-flex justify-content-center mb-4">
-            <button id="generar" class="btn" style="background-color: #f5c7f7;">Generar</button>
-        </div>
-        <div id="cotizacion" class="mt-4"></div>
+      <h1 class="mb-4 text-center">Cotización</h1>
+      <div class="mb-3">
+        <label for="client-selection">Seleccione un cliente:</label>
+        <select class="form-control" id="client-selection">
+          <!-- Los clientes se llenarán aquí desde Firebase -->
+        </select>
+      </div>
+      <div class="d-flex justify-content-center mb-4">
+        <button id="generar" class="btn" style="background-color: #f5c7f7">
+          Generar
+        </button>
+      </div>
+      <div id="cotizacion" class="mt-4"></div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyBVa3E_FjHgT2tdby-5bRieK_pJTyJ3njs",
-            authDomain: "catalist-a076a.firebaseapp.com",
-            projectId: "catalist-a076a",
-            storageBucket: "catalist-a076a.appspot.com",
-            messagingSenderId: "693759856140",
-            appId: "1:693759856140:web:ec4abb7b93674edc3a6829",
-            measurementId: "G-MQH3EE6FP8"
-        };
-        firebase.initializeApp(firebaseConfig);
+      var firebaseConfig = {
+        apiKey: 'AIzaSyBVa3E_FjHgT2tdby-5bRieK_pJTyJ3njs',
+        authDomain: 'catalist-a076a.firebaseapp.com',
+        projectId: 'catalist-a076a',
+        storageBucket: 'catalist-a076a.appspot.com',
+        messagingSenderId: '693759856140',
+        appId: '1:693759856140:web:ec4abb7b93674edc3a6829',
+        measurementId: 'G-MQH3EE6FP8',
+      };
+      firebase.initializeApp(firebaseConfig);
 
-        var db = firebase.firestore();
+      var db = firebase.firestore();
 
-        // Obtén una referencia al menú desplegable de clientes
-        var clientSelection = document.getElementById('client-selection');
+      // Obtén una referencia al menú desplegable de clientes
+      var clientSelection = document.getElementById('client-selection');
 
-        // Llena el menú desplegable con los nombres de todos los clientes
-        db.collection('clientes').get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let option = document.createElement('option');
-                option.text = doc.data().nombre;
-                option.value = doc.id;
-                clientSelection.add(option);
-            });
+      // Llena el menú desplegable con los nombres de todos los clientes
+      db.collection('clientes')
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            let option = document.createElement('option');
+            option.text = doc.data().nombre;
+            option.value = doc.id;
+            clientSelection.add(option);
+          });
         });
 
-        document.getElementById('generar').addEventListener('click', async function () {
-            // Busca la información del cliente seleccionado
-            let clienteRef = await db.collection('clientes').doc(clientSelection.value).get();
-            let cliente = clienteRef.data();
+      document
+        .getElementById('generar')
+        .addEventListener('click', async function () {
+          // Busca la información del cliente seleccionado
+          let clienteRef = await db
+            .collection('clientes')
+            .doc(clientSelection.value)
+            .get();
+          let cliente = clienteRef.data();
 
-            // Obtiene el número de cotizacion actual
-            let cotizacionRef = await db.collection('configuracion').doc('cotizacion').get();
-            let numeroCotizacion = cotizacionRef.data().numero;
+          // Obtiene el número de cotizacion actual
+          let cotizacionRef = await db
+            .collection('configuracion')
+            .doc('cotizacion')
+            .get();
+          let numeroCotizacion = cotizacionRef.data().numero;
 
-            // Genera la cotización con la información del cliente y el producto
-            let cotizacionInfo = `
+          // Genera la cotización con la información del cliente y el producto
+          let cotizacionInfo = `
                 <div style="font-family: Arial, sans-serif; font-size: 14px;">
                     <div style="display: flex; justify-content: space-between;">
                         <div>
@@ -211,10 +188,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.producto}</td>
-                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.cantidad}</td>
-                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.precio}</td>
-                                    <td style="padding: 8px; border: 1px solid #000;">${cliente.cantidad * cliente.precio}</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${
+                                      cliente.producto
+                                    }</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${
+                                      cliente.cantidad
+                                    }</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${
+                                      cliente.precio
+                                    }</td>
+                                    <td style="padding: 8px; border: 1px solid #000;">${
+                                      cliente.cantidad * cliente.precio
+                                    }</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -222,9 +207,19 @@
                     <hr>
                     <div style="display: flex; justify-content: flex-end;">
                         <div>
-                            <p>Subtotal: ${cliente.cantidad * cliente.precio}</p>
-                            <p>IVA (21%): ${((cliente.cantidad * cliente.precio) * 0.21).toFixed(2)}</p>
-                            <h4>Total: ${((cliente.cantidad * cliente.precio) * 1.21).toFixed(2)}</h4>
+                            <p>Subtotal: ${
+                              cliente.cantidad * cliente.precio
+                            }</p>
+                            <p>IVA (21%): ${(
+                              cliente.cantidad *
+                              cliente.precio *
+                              0.21
+                            ).toFixed(2)}</p>
+                            <h4>Total: ${(
+                              cliente.cantidad *
+                              cliente.precio *
+                              1.21
+                            ).toFixed(2)}</h4>
                         </div>
                     </div>
                     <hr>
@@ -234,18 +229,26 @@
                     </div>
                 </div>
             `;
-            document.getElementById('cotizacion').innerHTML = cotizacionInfo;
+          document.getElementById('cotizacion').innerHTML = cotizacionInfo;
 
-            // Incrementa el número de cotizacion en la base de datos
-            db.collection('configuracion').doc('cotizacion').update({
-                numero: firebase.firestore.FieldValue.increment(1)
+          // Incrementa el número de cotizacion en la base de datos
+          db.collection('configuracion')
+            .doc('cotizacion')
+            .update({
+              numero: firebase.firestore.FieldValue.increment(1),
             });
         });
     </script>
 
-    <footer style="background-color: #363636; color: white; text-align: center; padding: 20px;">
-        Catalist © 2023 All rights reserved
+    <footer
+      style="
+        background-color: #363636;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      "
+    >
+      Catalist © 2023 All rights reserved
     </footer>
-</body>
-
+  </body>
 </html>
