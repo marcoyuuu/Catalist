@@ -10,6 +10,12 @@ Catalist es una solución integral de gestión de ventas y facturación para la 
 - Integración con sistemas empresariales
 - Soporte y actualizaciones continuas
 
+### Tecnologías Utilizadas
+- Frontend: HTML, CSS, JavaScript, Bootstrap
+- Backend: MongoDB, Node.js, Express
+- Despliegue: Firebase Hosting
+
+
 ### Documentación
 Consulta la [documentación oficial](https://sites.google.com/upr.edu/catalist).
 
